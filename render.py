@@ -21,18 +21,17 @@ def main():
     lime_green = np.array([[0.196, 0.804, 0.196]])
     forest_green = np.array([[0.133, 0.545, 0.133]])
     sea_green = np.array([[0.180, 0.545, 0.341]])
-    corn_flour_white = np.array([[0.961, 0.961, 0.863]])
 
     canvas *= sea_green * x + forest_green * (1 - x)
     canvas = lime_green * y + canvas * (1 - y)
 
-    draw_circle(canvas, (100, mid_y), 10, corn_flour_white)
-    draw_circle(canvas, (200, mid_y), 20, corn_flour_white)
-    draw_circle(canvas, (300, mid_y), 30, corn_flour_white)
-    draw_circle(canvas, (500, mid_y), 40, corn_flour_white)
-    draw_circle(canvas, (800, mid_y), 50, corn_flour_white)
-    draw_circle(canvas, (1300, mid_y), 60, corn_flour_white)
-    draw_circle(canvas, (2100, mid_y), 70, corn_flour_white)
+    draw_circle(canvas, (100, mid_y), 10, sea_green)
+    draw_circle(canvas, (200, mid_y), 20, sea_green)
+    draw_circle(canvas, (300, mid_y), 30, sea_green)
+    draw_circle(canvas, (500, mid_y), 40, sea_green)
+    draw_circle(canvas, (800, mid_y), 50, sea_green)
+    draw_circle(canvas, (1300, mid_y), 60, sea_green)
+    draw_circle(canvas, (2100, mid_y), 70, sea_green)
 
     # Apply Gaussian filter to each color channel separately
     for i in range(3):
