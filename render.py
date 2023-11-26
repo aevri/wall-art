@@ -1,6 +1,8 @@
 import numpy as np
 from scipy.ndimage import gaussian_filter
+import random
 import matplotlib.pyplot as plt
+
 
 def draw_circle(canvas, center, radius, color):
     height, width, _ = canvas.shape
@@ -9,9 +11,10 @@ def draw_circle(canvas, center, radius, color):
     mask = distances <= radius
     canvas[mask] = color
 
+
 def main():
-    width = 2000
-    height = 2000
+    width = 800
+    height = 800
     mid_y = height // 2
     canvas = np.ones((height, width, 3))
 
@@ -25,21 +28,23 @@ def main():
     canvas *= sea_green * x + forest_green * (1 - x)
     canvas = lime_green * y + canvas * (1 - y)
 
-    draw_circle(canvas, (100, mid_y), 10, sea_green)
-    draw_circle(canvas, (200, mid_y), 20, sea_green)
-    draw_circle(canvas, (300, mid_y), 30, sea_green)
-    draw_circle(canvas, (500, mid_y), 40, sea_green)
-    draw_circle(canvas, (800, mid_y), 50, sea_green)
-    draw_circle(canvas, (1300, mid_y), 60, sea_green)
-    draw_circle(canvas, (2100, mid_y), 70, sea_green)
+    num_circles = 70
 
-    # Apply Gaussian filter to each color channel separately
-    for i in range(3):
-        canvas[:, :, i] = gaussian_filter(canvas[:, :, i], sigma=16)
+    for _ in range(num_circles):
+        radius = random.randint(10, mid_y * 0.25)
+        center_x = random.randint(0, width)
+        center_y = random.randint(0, height)
+        color = np.random.rand(1, 3)
+        color[0, 1] = 0.5 * color[0, 1] + 0.5
+        draw_circle(canvas, (center_x, center_y), radius, color)
+        # Apply Gaussian filter to each color channel separately
+        for i in range(3):
+            canvas[:, :, i] = gaussian_filter(canvas[:, :, i], sigma=2)
 
     # Save the image as "out.png"
     canvas = (canvas * 255).astype(np.uint8)
     plt.imsave("out.png", canvas)
+
 
 if __name__ == "__main__":
     main()
